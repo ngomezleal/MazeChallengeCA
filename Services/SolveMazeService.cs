@@ -96,26 +96,26 @@ namespace MazeChallengeCA.Services
             else
                 return false;
 
-            bool root = false;
+            bool path = false;
             virtualMaze = miscellaneous.Print(virtualMaze);
 
-            /*Recursives calls
+            /*Recursives calls (Algorithm recursive applied)
              * //Due to it didn't find the exit in the four movements, it comes back
              */
-            root = await SolveMaze(game, Constants.GoEast, y, (x + 1)); //Go to GoEast
-            if (root)
+            path = await SolveMaze(game, Constants.GoEast, y, (x + 1)); //Go to GoEast
+            if (path)
                 return true;
 
-            root = await SolveMaze(game, Constants.GoNorth, (y - 1), x); //Go to GoNorth
-            if (root)
+            path = await SolveMaze(game, Constants.GoNorth, (y - 1), x); //Go to GoNorth
+            if (path)
                 return true;
 
-            root = await SolveMaze(game, Constants.GoWest, y, (x - 1)); //Go to GoWest
-            if (root)
+            path = await SolveMaze(game, Constants.GoWest, y, (x - 1)); //Go to GoWest
+            if (path)
                 return true;
 
-            root = await SolveMaze(game, Constants.GoSouth, (y + 1), x); //Go to GoSouth
-            if (root)
+            path = await SolveMaze(game, Constants.GoSouth, (y + 1), x); //Go to GoSouth
+            if (path)
                 return true;
 
             //Otherwise, if it isn't the result expected, then the current position(path) is unchecked.

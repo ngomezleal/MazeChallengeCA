@@ -42,5 +42,7 @@ var game = await buildMaze.CreateGameWithNewMaze(objGame);
 //Step 3 "Start to solve"
 char[,] virtualMaze = new char[objMaze.Height, objMaze.Width];
 virtualMaze = miscellaneous.InitializeVirtualMaze(virtualMaze);
+
+//Call method to solve maze
 await solveMaze.SolveMaze(game);
 Console.WriteLine("Finished");
