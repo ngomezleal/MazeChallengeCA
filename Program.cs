@@ -6,21 +6,26 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+//The “configuration” variable is created to get our settings.
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
 
+/*Instantiate a variable ‘services’ with a ‘ServiceCollection’ instance.
+ * It’s used to retrieve our services via Dependency Injection.*/
 var services = new ServiceCollection();
+
+//An extension method created to configure depencency injection.
 services.ConfigureMazeDependecyInjection(configuration);
 using var serviceProvider = services.BuildServiceProvider();
-
 var logger = serviceProvider.GetService<ILoggerFactory>();
 var buildMaze = serviceProvider.GetService<IMazeService>();
 var solveMaze = serviceProvider.GetService<ISolveMazeService>();
 var miscellaneous = serviceProvider.GetService<IMiscellaneous>();
 var apiParams = configuration.GetSection("Maze").Get<MazeApiParamsDto>();
 
+//Important parameters to create new Maze
 Maze objMaze = new Maze()
 {
     Width = Constants.Width,
