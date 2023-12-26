@@ -68,6 +68,7 @@ namespace MazeChallengeCA.Services
         public char[,] Print(char[,] virtualMaze)
         {
             Console.Clear();
+            Console.WriteLine("Searching solutions...");
             for (int i = 0; i < virtualMaze.GetLength(0); i++)
             {
                 for (int j = 0; j < virtualMaze.GetLength(1); j++)
