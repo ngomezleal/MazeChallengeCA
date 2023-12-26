@@ -1,10 +1,12 @@
-﻿using MazeChallengeCA.Dtos;
+﻿#region Namespaces
+using MazeChallengeCA.Dtos;
 using MazeChallengeCA.Helpers;
 using MazeChallengeCA.Interfaces;
 using MazeChallengeCA.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+#endregion
 
 //The “configuration” variable is created to get our settings.
 var configuration = new ConfigurationBuilder()
