@@ -14,7 +14,6 @@ namespace MazeChallengeCA.Services
         Game objGame = new Game();
         List<CurrentPositionMazeBlockViewDto> listCurrentPosition;
         char[,] virtualMaze;
-        public int incremental { get; set; }
         public SolveMazeService(IOptions<MazeApiParamsDto> options, IMiscellaneous miscellaneous, IMazeService mazeService)
         {
             this.mazeService = mazeService;
@@ -40,8 +39,8 @@ namespace MazeChallengeCA.Services
                 if (currentPosition.MazeBlockView is not null)
                 {
                     currentPosition = miscellaneous.ReverseLatitude(currentPosition, latitude);
-                    var indexA = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
-                    if (indexA == -1)
+                    var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
+                    if (indexPositionByLatitude == -1)
                         listCurrentPosition.Add(currentPosition.MazeBlockView);
                     virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
                     virtualMaze = miscellaneous.Print(virtualMaze);
@@ -72,10 +71,10 @@ namespace MazeChallengeCA.Services
                 {
                     if (currentPosition.MazeBlockView is not null)
                     {
-                        var indexB = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
+                        var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
                         try
                         {
-                            objGame.Operation = listCurrentPosition[indexB].ReverseLatitude;
+                            objGame.Operation = listCurrentPosition[indexPositionByLatitude].ReverseLatitude;
                             currentPosition = await mazeService.MoveLatitude(objGame);
                         }
                         catch (Exception ex)
@@ -92,7 +91,7 @@ namespace MazeChallengeCA.Services
             /*Intermadiate Case 
              * It start to go foreach latitude*/
             if ((y >= 0 && y < virtualMaze.GetLength(0)) && (x >= 0 && x < virtualMaze.GetLength(1)))
-                virtualMaze[y, x] = '*'; //Line visited
+                virtualMaze[y, x] = '*'; //Line or cell visited!
             else
                 return false;
 
@@ -120,8 +119,8 @@ namespace MazeChallengeCA.Services
 
             //Otherwise, if it isn't the result expected, then the current position(path) is unchecked.
             virtualMaze[y, x] = ' ';
-            var indexC = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x);
-            objGame.Operation = listCurrentPosition[indexC].ReverseLatitude;
+            var indexPositionByCoordnates = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x);
+            objGame.Operation = listCurrentPosition[indexPositionByCoordnates].ReverseLatitude;
             currentPosition = await mazeService.MoveLatitude(objGame);
             virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
             virtualMaze = miscellaneous.Print(virtualMaze);
