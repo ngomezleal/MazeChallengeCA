@@ -35,6 +35,8 @@ namespace MazeChallengeCA.Services
 
             if (!string.IsNullOrEmpty(latitude))
             {
+                /*Doing movement to another latitud.
+                 * If this one isn't null, then, save the movements, recalculate the obstacles and continue.*/
                 currentPosition = await mazeService.MoveLatitude(objGame);
                 if (currentPosition.MazeBlockView is not null)
                 {
@@ -51,11 +53,11 @@ namespace MazeChallengeCA.Services
             {
                 if (currentPosition.MazeBlockView is not null)
                 {
-                    //Checking if the game has reached the end of the maze
+                    //Checking if the game has reached the end of the maze.
                     if ((currentPosition.MazeBlockView.CoordX == currentPosition.MazeBlockView.CoordY) &&
                     (currentPosition.MazeBlockView.CoordX == (Constants.Height - 1) && currentPosition.MazeBlockView.CoordY == (Constants.Width - 1)))
                     {
-                        //The end of the maze is always where the coord x and y are equal to the width-1 and height-1 of the created maze
+                        //The end of the maze is always where the coord x and y are equal to the width-1 and height-1 of the created maze.
                         Console.WriteLine();
                         Console.WriteLine("Congratulations, you won!");
                         return true;
@@ -68,7 +70,6 @@ namespace MazeChallengeCA.Services
             if ((y >= 0 && y < virtualMaze.GetLength(0)) && (x >= 0 && x < virtualMaze.GetLength(1)))
             {
                 //If it arrive to the wall or at the same point, It continue to search some solutions.
-                //Si llegamos a una pared o al mismo punto, no se puede resolver.
                 if (virtualMaze[y, x] == '#' || virtualMaze[y, x] == '*')
                 {
                     if (currentPosition.MazeBlockView is not null)
@@ -101,8 +102,7 @@ namespace MazeChallengeCA.Services
             virtualMaze = miscellaneous.Print(virtualMaze);
 
             /*Recursives calls (Algorithm recursive applied)
-             * //Due to it didn't find the exit in the four movements, it comes back
-             */
+             * //Due to it didn't find the exit in the four movements, it comes back */
             path = await SolveMaze(game, Constants.GoEast, y, (x + 1)); //Go to GoEast
             if (path)
                 return true;
