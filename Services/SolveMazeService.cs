@@ -51,9 +51,11 @@ namespace MazeChallengeCA.Services
             {
                 if (currentPosition.MazeBlockView is not null)
                 {
+                    //Checking if the game has reached the end of the maze
                     if ((currentPosition.MazeBlockView.CoordX == currentPosition.MazeBlockView.CoordY) &&
                     (currentPosition.MazeBlockView.CoordX == (Constants.Height - 1) && currentPosition.MazeBlockView.CoordY == (Constants.Width - 1)))
                     {
+                        //The end of the maze is always where the coord x and y are equal to the width-1 and height-1 of the created maze
                         Console.WriteLine();
                         Console.WriteLine("Congratulations, you won!");
                         return true;
