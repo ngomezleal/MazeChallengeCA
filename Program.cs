@@ -37,15 +37,15 @@ Maze objMaze = new Maze()
 
 //Step 1: "Create a New Random Maze"
 var newMaze = await buildMaze.CreateNewRandomMaze(objMaze);
-Console.WriteLine("Maze created");
+Console.WriteLine("Maze created!");
 //Step 2; "Start the game"
 Game objGame = new Game()
 {
     Operation = Constants.Operation,
     Url = $"{apiParams.Url}/Game/{newMaze.MazeUid}?code={apiParams.Code}"
 };
+Console.WriteLine("Creating game...");
 var game = await buildMaze.CreateGameWithNewMaze(objGame);
-Console.WriteLine("Game started");
 
 //Step 3 "Start to solve"
 char[,] virtualMaze = new char[objMaze.Height, objMaze.Width];
