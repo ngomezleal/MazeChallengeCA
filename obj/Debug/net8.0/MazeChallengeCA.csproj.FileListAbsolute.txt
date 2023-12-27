@@ -24,6 +24,9 @@ C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\M
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Serilog.dll
+C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\obj\Debug\net8.0\MazeChallengeCA.csproj.AssemblyReference.cache
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\obj\Debug\net8.0\MazeChallengeCA.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Balutek\Documents\Projects Nelson Gomez\MazeChallenge\MazeChallengeCA\MazeChallengeCA\obj\Debug\net8.0\MazeChallengeCA.AssemblyInfoInputs.cache

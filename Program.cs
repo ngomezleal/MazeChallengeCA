@@ -24,15 +24,15 @@ using var serviceProvider = services.BuildServiceProvider();
 var logger = serviceProvider.GetService<ILoggerFactory>();
 var buildMaze = serviceProvider.GetService<IMazeService>();
 var solveMaze = serviceProvider.GetService<ISolveMazeService>();
-var miscellaneous = serviceProvider.GetService<IMiscellaneous>();
-var apiParams = configuration.GetSection("Maze").Get<MazeApiParamsDto>();
+var virtualMazeService = serviceProvider.GetService<IVirtualMazeService>();
+var globalConfiguration = configuration.GetSection("GlobalConfiguration").Get<GlobalConfigurationDto>();
 
 //Important parameters to create new Maze
 Maze objMaze = new Maze()
 {
-    Width = Constants.Width,
-    Height = Constants.Height,
-    Url = $"api/Maze?code={apiParams.Code}"
+    Width = globalConfiguration.MazeSize.Width,
+    Height = globalConfiguration.MazeSize.Height,
+    Url = $"{globalConfiguration.Maze.NewMazeApiUri}?code={globalConfiguration.Maze.Code}"
 };
 
 //Step 1: "Create a New Random Maze"
@@ -42,15 +42,15 @@ Console.WriteLine("Maze created!");
 //Step 2; "Start the game"
 Game objGame = new Game()
 {
-    Operation = Constants.Operation,
-    Uri = $"api/Game/{newMaze.MazeUid}?code={apiParams.Code}"
+    Operation = globalConfiguration.Maze.Operation,
+    Uri = $"{globalConfiguration.Maze.GameApiUri}{newMaze.MazeUid}?code={globalConfiguration.Maze.Code}"
 };
 Console.WriteLine("Creating game...");
 var game = await buildMaze.CreateGameWithNewMaze(objGame);
 
 //Step 3 "Start to solve"
 char[,] virtualMaze = new char[objMaze.Height, objMaze.Width];
-virtualMaze = miscellaneous.InitializeVirtualMaze(virtualMaze);
+virtualMaze = virtualMazeService.InitializeVirtualMaze(virtualMaze);
 
 //Call method to solve maze
 await solveMaze.SolveMaze(game);
