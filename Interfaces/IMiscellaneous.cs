@@ -9,5 +9,6 @@ namespace MazeChallengeCA.Interfaces
         char[,] RecalculatePositions(GameCurrentPositionAnswerDto objGameCurrentPositionAnswer, char[,] virtualMaze);
         char[,] Print(char[,] virtualMaze);
         GameCurrentPositionAnswerDto ReverseLatitude(GameCurrentPositionAnswerDto currentPositionAnswerDto, string latitude);
+        CurrentPositionLatitudeAnswerDto ReversePositionsAndLatitude(int positionY, int positionX, string latitude);
     }
 }

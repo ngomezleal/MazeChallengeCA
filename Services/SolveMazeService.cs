@@ -12,9 +12,9 @@ namespace MazeChallengeCA.Services
         private readonly IOptions<MazeApiParamsDto> config;
         private readonly IMiscellaneous miscellaneous;
         List<CurrentPositionMazeBlockViewDto> listCurrentPosition;
+        CurrentPositionLatitudeAnswerDto currentPositionLatitude;
         Game objGame = new Game();
         char[,] virtualMaze;
-        int initializer = 0;
         public SolveMazeService(IOptions<MazeApiParamsDto> options, IMiscellaneous miscellaneous, IMazeService mazeService)
         {
             this.mazeService = mazeService;
@@ -22,6 +22,7 @@ namespace MazeChallengeCA.Services
             this.miscellaneous = miscellaneous;
             virtualMaze = new char[Constants.Height, Constants.Width];
             listCurrentPosition = new List<CurrentPositionMazeBlockViewDto>();
+            currentPositionLatitude = new CurrentPositionLatitudeAnswerDto();
             virtualMaze = miscellaneous.InitializeVirtualMaze(virtualMaze);
         }
 
@@ -48,28 +49,17 @@ namespace MazeChallengeCA.Services
                     virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
                     virtualMaze = miscellaneous.Print(virtualMaze);
                 }
-                //else
-                //{
-                //    if (initializer == 0)
-                //    {
-                //        /* At the beginning, the first movement go to the east.
-                //         * However, the service can return blocked values. This exceptions allow go to the south.
-                //         * The goals is to find a solution */
-                //        objGame.Operation = Constants.GoSouth;
-                //        y = 1; x = 0;
-                //        currentPosition = await mazeService.MoveLatitude(objGame);
-                //        if (currentPosition.MazeBlockView is not null)
-                //        {
-                //            currentPosition = miscellaneous.ReverseLatitude(currentPosition, latitude);
-                //            var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
-                //            if (indexPositionByLatitude == -1)
-                //                listCurrentPosition.Add(currentPosition.MazeBlockView);
-                //            virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
-                //            virtualMaze = miscellaneous.Print(virtualMaze);
-                //        }
-                //        initializer++;
-                //    }
-                //}
+                else
+                {
+                    /* Foreach movement, the coordinates change. Sometimes the service can return blocked values. 
+                     * either blocked coordinates or another situation. 
+                     * It's necessary restore the positions and coordinates */
+                    currentPositionLatitude = miscellaneous.ReversePositionsAndLatitude(y, x, latitude);
+                    y = currentPositionLatitude.PositionY;
+                    x = currentPositionLatitude.PositionX;
+                    latitude = currentPositionLatitude.Latitude;
+                    return false;
+                }
             }
 
             if ((y >= 0 && y < virtualMaze.GetLength(0)) && (x >= 0 && x < virtualMaze.GetLength(1)))
@@ -94,7 +84,8 @@ namespace MazeChallengeCA.Services
 
             if ((y >= 0 && y < virtualMaze.GetLength(0)) && (x >= 0 && x < virtualMaze.GetLength(1)))
             {
-                //If it arrive to the wall or at the same point, It continue to search some solutions.
+                /*If it arrive to the wall or at the same point, It continue to search some solutions.
+                 * It mean, it's necessary return to the old position */
                 if (virtualMaze[y, x] == '#' || virtualMaze[y, x] == '*')
                 {
                     if (currentPosition.MazeBlockView is not null)

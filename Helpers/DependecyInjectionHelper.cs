@@ -18,8 +18,8 @@ namespace MazeChallengeCA.Helpers
             });
             services.Configure<MazeApiParamsDto>(options => configuration.GetSection("Maze").Bind(options));
             services.AddSingleton<IMazeService, MazeService>();
-            services.AddSingleton<ISolveMazeService, SolveMazeService>();
-            services.AddSingleton<IMiscellaneous, Miscellaneous>();
+            services.AddScoped<ISolveMazeService, SolveMazeService>();
+            services.AddScoped<IMiscellaneous, Miscellaneous>();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MazeChallengeCA.Dtos;
 using MazeChallengeCA.Helpers;
 using MazeChallengeCA.Interfaces;
-using System;
 
 namespace MazeChallengeCA.Services
 {
@@ -84,20 +83,52 @@ namespace MazeChallengeCA.Services
             currentPosition.MazeBlockView.Latitude = latitude;
             switch (latitude)
             {
-                case "GoEast":
+                case nameof(Constants.GoEast):
                     currentPosition.MazeBlockView.ReverseLatitude = Constants.GoWest;
                     break;
-                case "GoNorth":
+                case nameof(Constants.GoNorth):
                     currentPosition.MazeBlockView.ReverseLatitude = Constants.GoSouth;
                     break;
-                case "GoWest":
+                case nameof(Constants.GoWest):
                     currentPosition.MazeBlockView.ReverseLatitude = Constants.GoEast;
                     break;
-                case "GoSouth":
+                case nameof(Constants.GoSouth):
                     currentPosition.MazeBlockView.ReverseLatitude = Constants.GoNorth;
                     break;
             }
             return currentPosition;
+        }
+
+        public CurrentPositionLatitudeAnswerDto ReversePositionsAndLatitude(int positionY, int positionX, string latitude)
+        {
+            CurrentPositionLatitudeAnswerDto currentPositionLatitude;
+            switch (latitude)
+            {
+                case nameof(Constants.GoEast):
+                    positionX -= 1;
+                    latitude = Constants.GoWest;
+                    break;
+                case nameof(Constants.GoNorth):
+                    positionY += 1;
+                    latitude = Constants.GoSouth;
+                    break;
+                case nameof(Constants.GoWest):
+                    positionX += 1;
+                    latitude = Constants.GoEast;
+                    break;
+                case nameof(Constants.GoSouth):
+                    positionY -= 1;
+                    latitude = Constants.GoNorth;
+                    break;
+            }
+
+            currentPositionLatitude = new CurrentPositionLatitudeAnswerDto()
+            {
+                Latitude = latitude,
+                PositionX = positionX,
+                PositionY = positionY,
+            };
+            return currentPositionLatitude;
         }
     }
 }
