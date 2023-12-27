@@ -30,6 +30,11 @@ namespace MazeChallengeCA.Services
                 var body = await response.Content.ReadAsStringAsync();
                 newMaze = JsonSerializer.Deserialize<MazeAnswerDto>(body);
             }
+            else
+            {
+                Console.WriteLine("The service 'CreateNewRandomMaze' has failed");
+                Environment.Exit(0);
+            }
             return newMaze;
         }
 
@@ -44,6 +49,11 @@ namespace MazeChallengeCA.Services
                 var body = await response.Content.ReadAsStringAsync();
                 gameAnswer = JsonSerializer.Deserialize<GameAnswerDto>(body);
             }
+            else
+            {
+                Console.WriteLine("The service 'CreateGameWithNewMaze' has failed");
+                Environment.Exit(0);
+            }
             return gameAnswer;
         }
 
@@ -57,6 +67,11 @@ namespace MazeChallengeCA.Services
             {
                 var body = await response.Content.ReadAsStringAsync();
                 currentPositionAnswer = JsonSerializer.Deserialize<GameCurrentPositionAnswerDto>(body);
+            }
+            else
+            {
+                Console.WriteLine("The service 'GameCurrentPosition' has failed");
+                Environment.Exit(0);
             }
             return currentPositionAnswer;
         }
@@ -86,6 +101,11 @@ namespace MazeChallengeCA.Services
             {
                 var body = await response.Content.ReadAsStringAsync();
                 debuggingAnswer = JsonSerializer.Deserialize<DebugingPurpousesAnswerDto>(body);
+            }
+            else
+            {
+                Console.WriteLine("The service 'DebugingPurpouses' has failed");
+                Environment.Exit(0);
             }
             return debuggingAnswer;
         }
