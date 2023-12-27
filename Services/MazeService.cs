@@ -3,7 +3,6 @@ using MazeChallengeCA.Helpers;
 using MazeChallengeCA.Interfaces;
 using MazeChallengeCA.Models;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 

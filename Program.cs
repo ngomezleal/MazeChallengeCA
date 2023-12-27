@@ -38,6 +38,7 @@ Maze objMaze = new Maze()
 //Step 1: "Create a New Random Maze"
 var newMaze = await buildMaze.CreateNewRandomMaze(objMaze);
 Console.WriteLine("Maze created!");
+
 //Step 2; "Start the game"
 Game objGame = new Game()
 {

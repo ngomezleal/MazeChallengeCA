@@ -11,9 +11,10 @@ namespace MazeChallengeCA.Services
         private readonly IMazeService mazeService;
         private readonly IOptions<MazeApiParamsDto> config;
         private readonly IMiscellaneous miscellaneous;
-        Game objGame = new Game();
         List<CurrentPositionMazeBlockViewDto> listCurrentPosition;
+        Game objGame = new Game();
         char[,] virtualMaze;
+        int initializer = 0;
         public SolveMazeService(IOptions<MazeApiParamsDto> options, IMiscellaneous miscellaneous, IMazeService mazeService)
         {
             this.mazeService = mazeService;
@@ -35,7 +36,7 @@ namespace MazeChallengeCA.Services
 
             if (!string.IsNullOrEmpty(latitude))
             {
-                /*Doing movement to another latitud.
+                /* Doing movement to another latitud.
                  * If this one isn't null, then, save the movements, recalculate the obstacles and continue.*/
                 currentPosition = await mazeService.MoveLatitude(objGame);
                 if (currentPosition.MazeBlockView is not null)
@@ -46,6 +47,28 @@ namespace MazeChallengeCA.Services
                         listCurrentPosition.Add(currentPosition.MazeBlockView);
                     virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
                     virtualMaze = miscellaneous.Print(virtualMaze);
+                }
+                else
+                {
+                    if (initializer == 0)
+                    {
+                        /* At the beginning, the first movement go to the east.
+                         * However, the service can return blocked values. This exceptions allow go to the south.
+                         * The goals is to find a solution */
+                        objGame.Operation = Constants.GoSouth;
+                        y = 1; x = 0;
+                        currentPosition = await mazeService.MoveLatitude(objGame);
+                        if (currentPosition.MazeBlockView is not null)
+                        {
+                            currentPosition = miscellaneous.ReverseLatitude(currentPosition, latitude);
+                            var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
+                            if (indexPositionByLatitude == -1)
+                                listCurrentPosition.Add(currentPosition.MazeBlockView);
+                            virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
+                            virtualMaze = miscellaneous.Print(virtualMaze);
+                        }
+                        initializer++;
+                    }
                 }
             }
 
@@ -75,15 +98,8 @@ namespace MazeChallengeCA.Services
                     if (currentPosition.MazeBlockView is not null)
                     {
                         var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
-                        try
-                        {
-                            objGame.Operation = listCurrentPosition[indexPositionByLatitude].ReverseLatitude;
-                            currentPosition = await mazeService.MoveLatitude(objGame);
-                        }
-                        catch (Exception ex)
-                        {
-
-                        }
+                        objGame.Operation = listCurrentPosition[indexPositionByLatitude].ReverseLatitude;
+                        currentPosition = await mazeService.MoveLatitude(objGame);
                     }
                     return false;
                 }
@@ -119,7 +135,7 @@ namespace MazeChallengeCA.Services
             if (path)
                 return true;
 
-            //Otherwise, if it isn't the result expected, then the current position(path) is unchecked.
+            //Otherwise, if isn't the result expected, then the current position(path) is unchecked.
             virtualMaze[y, x] = ' ';
             var indexPositionByCoordnates = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x);
             objGame.Operation = listCurrentPosition[indexPositionByCoordnates].ReverseLatitude;
