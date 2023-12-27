@@ -48,28 +48,28 @@ namespace MazeChallengeCA.Services
                     virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
                     virtualMaze = miscellaneous.Print(virtualMaze);
                 }
-                else
-                {
-                    if (initializer == 0)
-                    {
-                        /* At the beginning, the first movement go to the east.
-                         * However, the service can return blocked values. This exceptions allow go to the south.
-                         * The goals is to find a solution */
-                        objGame.Operation = Constants.GoSouth;
-                        y = 1; x = 0;
-                        currentPosition = await mazeService.MoveLatitude(objGame);
-                        if (currentPosition.MazeBlockView is not null)
-                        {
-                            currentPosition = miscellaneous.ReverseLatitude(currentPosition, latitude);
-                            var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
-                            if (indexPositionByLatitude == -1)
-                                listCurrentPosition.Add(currentPosition.MazeBlockView);
-                            virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
-                            virtualMaze = miscellaneous.Print(virtualMaze);
-                        }
-                        initializer++;
-                    }
-                }
+                //else
+                //{
+                //    if (initializer == 0)
+                //    {
+                //        /* At the beginning, the first movement go to the east.
+                //         * However, the service can return blocked values. This exceptions allow go to the south.
+                //         * The goals is to find a solution */
+                //        objGame.Operation = Constants.GoSouth;
+                //        y = 1; x = 0;
+                //        currentPosition = await mazeService.MoveLatitude(objGame);
+                //        if (currentPosition.MazeBlockView is not null)
+                //        {
+                //            currentPosition = miscellaneous.ReverseLatitude(currentPosition, latitude);
+                //            var indexPositionByLatitude = listCurrentPosition.FindIndex(coord => coord.CoordY == y && coord.CoordX == x && coord.Latitude == latitude);
+                //            if (indexPositionByLatitude == -1)
+                //                listCurrentPosition.Add(currentPosition.MazeBlockView);
+                //            virtualMaze = miscellaneous.RecalculatePositions(currentPosition, virtualMaze);
+                //            virtualMaze = miscellaneous.Print(virtualMaze);
+                //        }
+                //        initializer++;
+                //    }
+                //}
             }
 
             if ((y >= 0 && y < virtualMaze.GetLength(0)) && (x >= 0 && x < virtualMaze.GetLength(1)))
@@ -81,6 +81,8 @@ namespace MazeChallengeCA.Services
                     (currentPosition.MazeBlockView.CoordX == (Constants.Height - 1) && currentPosition.MazeBlockView.CoordY == (Constants.Width - 1)))
                     {
                         //The end of the maze is always where the coord x and y are equal to the width-1 and height-1 of the created maze.
+                        virtualMaze[currentPosition.MazeBlockView.CoordX, currentPosition.MazeBlockView.CoordY] = 'X';
+                        virtualMaze = miscellaneous.Print(virtualMaze);
                         Console.WriteLine();
                         Console.WriteLine("Congratulations, you won!");
                         return true;
