@@ -38,7 +38,7 @@ namespace MazeChallengeCA.Services
         {
             var gameAnswer = new GameAnswerDto();
             var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
-            var response = await client.PostAsJsonAsync(objGame.Url, objGame);
+            var response = await client.PostAsJsonAsync(objGame.Uri, objGame);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -67,7 +67,7 @@ namespace MazeChallengeCA.Services
         {
             var latitudes = new GameCurrentPositionAnswerDto();
             var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
-            var response = await client.PostAsJsonAsync(objGame.Url, objGame);
+            var response = await client.PostAsJsonAsync(objGame.Uri, objGame);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();

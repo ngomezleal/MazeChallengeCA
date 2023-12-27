@@ -5,8 +5,8 @@ namespace MazeChallengeCA.Helpers
     public static class Constants
     {
         public static int
-            Width = 4,
-            Height = 4;
+            Width = 3,
+            Height = 3;
 
         public static string
             Operation = "Start",

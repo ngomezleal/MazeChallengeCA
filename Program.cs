@@ -43,7 +43,7 @@ Console.WriteLine("Maze created!");
 Game objGame = new Game()
 {
     Operation = Constants.Operation,
-    Url = $"api/Game/{newMaze.MazeUid}?code={apiParams.Code}"
+    Uri = $"api/Game/{newMaze.MazeUid}?code={apiParams.Code}"
 };
 Console.WriteLine("Creating game...");
 var game = await buildMaze.CreateGameWithNewMaze(objGame);
@@ -55,3 +55,4 @@ virtualMaze = miscellaneous.InitializeVirtualMaze(virtualMaze);
 //Call method to solve maze
 await solveMaze.SolveMaze(game);
 Console.WriteLine("Finished");
+Console.ReadKey();
