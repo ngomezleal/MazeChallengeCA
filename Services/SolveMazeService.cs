@@ -51,8 +51,7 @@ namespace MazeChallengeCA.Services
                 }
                 else
                 {
-                    /* Foreach movement, the coordinates change. Sometimes the service can return blocked values. 
-                     * either blocked coordinates or another situation. 
+                    /* Foreach movement, the coordinates can change. Sometimes the service can return blocked values, either blocked coordinates or another situation. 
                      * It's necessary restore the positions and coordinates */
                     currentPositionLatitude = miscellaneous.ReversePositionsAndLatitude(y, x, latitude);
                     y = currentPositionLatitude.PositionY;
