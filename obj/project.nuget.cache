@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nZclqUmatZVHefHyDg7JQR9rFxAbnDBFTZ/0m1F7RkxXfzlQNEBt3uWW86XWLcHJHxcrsOWeym6Hu3cNwaT8ZA==",
+  "dgSpecHash": "/e6qBGuQwNtSe/xi1x8DOUNMJm3pNY+WhImldzpzOgJi2yOJ6ZfaaeK3Bs0XvNpsizbK+G/nvjpRBJhFFgH9qw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Balutek\\Documents\\Projects Nelson Gomez\\MazeChallenge\\MazeChallengeCA\\MazeChallengeCA\\MazeChallengeCA.csproj",
   "expectedPackageFiles": [
@@ -21,12 +21,10 @@
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.logging.configuration\\8.0.0\\microsoft.extensions.logging.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.logging.console\\8.0.0\\microsoft.extensions.logging.console.8.0.0.nupkg.sha512",
+    "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.logging.debug\\8.0.0\\microsoft.extensions.logging.debug.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\8.0.0\\microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "C:\\Users\\Balutek\\.nuget\\packages\\serilog\\3.1.1\\serilog.3.1.1.nupkg.sha512",
-    "C:\\Users\\Balutek\\.nuget\\packages\\serilog.sinks.console\\5.0.1\\serilog.sinks.console.5.0.1.nupkg.sha512",
-    "C:\\Users\\Balutek\\.nuget\\packages\\serilog.sinks.debug\\2.0.0\\serilog.sinks.debug.2.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\Balutek\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512"
