@@ -76,12 +76,7 @@ namespace MazeChallengeCA.Services
                         return true;
                     }
                 }
-            }
-            else
-                return false;
 
-            if (!virtualMazeService.PositionsOutOfRange(y, x, virtualMaze))
-            {
                 /*If it arrive to the wall or at the same point, It continue to search some solutions.
                  * It mean, it's necessary return to the old position */
                 if (virtualMaze[y, x] == config.Value.Path.Wall || virtualMaze[y, x] == config.Value.Path.Route)
@@ -94,14 +89,11 @@ namespace MazeChallengeCA.Services
                     }
                     return false;
                 }
-            }
-            else
-                return false;
 
-            /*Intermadiate Case 
-             * It start to go foreach latitude*/
-            if (!virtualMazeService.PositionsOutOfRange(y, x, virtualMaze))
+                /*Intermadiate Case 
+                 *It start to go foreach latitude*/
                 virtualMaze[y, x] = config.Value.Path.Route; //Line or cell visited!
+            }
             else
                 return false;
 
