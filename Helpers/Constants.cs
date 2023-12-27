@@ -10,6 +10,7 @@ namespace MazeChallengeCA.Helpers
 
         public static string
             Operation = "Start",
+            HttpClientConfigureName = "BackEndMaze",
             GoEast = "GoEast",
             GoNorth = "GoNorth",
             GoWest = "GoWest",

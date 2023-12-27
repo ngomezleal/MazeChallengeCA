@@ -30,7 +30,7 @@ namespace MazeChallengeCA.Services
             objGame = new Game()
             {
                 Operation = latitude,
-                Url = $"{config.Value.Url}/Game/{game.MazeUid}/{game.GameUid}?code={config.Value.Code}"
+                Url = $"api/Game/{game.MazeUid}/{game.GameUid}?code={config.Value.Code}"
             };
 
             if (!string.IsNullOrEmpty(latitude))

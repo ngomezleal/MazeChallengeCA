@@ -1,7 +1,9 @@
 ﻿using MazeChallengeCA.Dtos;
+using MazeChallengeCA.Helpers;
 using MazeChallengeCA.Interfaces;
 using MazeChallengeCA.Models;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -10,23 +12,24 @@ namespace MazeChallengeCA.Services
     public class MazeService: IMazeService
     {
         private readonly ILogger<MazeService> logger;
-        public MazeService(ILogger<MazeService> logger)
+        private readonly IHttpClientFactory httpClientFactory;
+
+        public MazeService(ILogger<MazeService> logger, IHttpClientFactory httpClientFactory)
         {
             this.logger = logger;
+            this.httpClientFactory = httpClientFactory;
         }
 
         //Step 1
         public async Task<MazeAnswerDto> CreateNewRandomMaze(Maze objMaze)
         {
             var newMaze = new MazeAnswerDto();
-            using (var httpClient = new HttpClient())
+            var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
+            var response = await client.PostAsJsonAsync(objMaze.Url, objMaze);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.PostAsJsonAsync(objMaze.Url, objMaze);
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    newMaze = JsonSerializer.Deserialize<MazeAnswerDto>(body);
-                }
+                var body = await response.Content.ReadAsStringAsync();
+                newMaze = JsonSerializer.Deserialize<MazeAnswerDto>(body);
             }
             return newMaze;
         }
@@ -35,14 +38,12 @@ namespace MazeChallengeCA.Services
         public async Task<GameAnswerDto> CreateGameWithNewMaze(Game objGame)
         {
             var gameAnswer = new GameAnswerDto();
-            using (var httpClient = new HttpClient())
+            var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
+            var response = await client.PostAsJsonAsync(objGame.Url, objGame);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.PostAsJsonAsync(objGame.Url, objGame);
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    gameAnswer = JsonSerializer.Deserialize<GameAnswerDto>(body);
-                }
+                var body = await response.Content.ReadAsStringAsync();
+                gameAnswer = JsonSerializer.Deserialize<GameAnswerDto>(body);
             }
             return gameAnswer;
         }
@@ -51,14 +52,12 @@ namespace MazeChallengeCA.Services
         public async Task<GameCurrentPositionAnswerDto> GameCurrentPosition(CurrentPositionDto objCurrentPosition)
         {
             var currentPositionAnswer = new GameCurrentPositionAnswerDto();
-            using (var httpClient = new HttpClient())
+            var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
+            var response = await client.GetAsync(objCurrentPosition.Url);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.GetAsync(objCurrentPosition.Url);
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    currentPositionAnswer = JsonSerializer.Deserialize<GameCurrentPositionAnswerDto>(body);
-                }
+                var body = await response.Content.ReadAsStringAsync();
+                currentPositionAnswer = JsonSerializer.Deserialize<GameCurrentPositionAnswerDto>(body);
             }
             return currentPositionAnswer;
         }
@@ -68,14 +67,12 @@ namespace MazeChallengeCA.Services
         public async Task<GameCurrentPositionAnswerDto> MoveLatitude(Game objGame)
         {
             var latitudes = new GameCurrentPositionAnswerDto();
-            using (var httpClient = new HttpClient())
+            var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
+            var response = await client.PostAsJsonAsync(objGame.Url, objGame);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.PostAsJsonAsync(objGame.Url, objGame);
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    latitudes = JsonSerializer.Deserialize<GameCurrentPositionAnswerDto>(body);
-                }
+                var body = await response.Content.ReadAsStringAsync();
+                latitudes = JsonSerializer.Deserialize<GameCurrentPositionAnswerDto>(body);
             }
             return latitudes;
         }
@@ -84,14 +81,12 @@ namespace MazeChallengeCA.Services
         public async Task<DebugingPurpousesAnswerDto> DebugingPurpouses(string url)
         {
             var debuggingAnswer = new DebugingPurpousesAnswerDto();
-            using (var httpClient = new HttpClient())
+            var client = httpClientFactory.CreateClient(Constants.HttpClientConfigureName);
+            var response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await httpClient.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    var body = await response.Content.ReadAsStringAsync();
-                    debuggingAnswer = JsonSerializer.Deserialize<DebugingPurpousesAnswerDto>(body);
-                }
+                var body = await response.Content.ReadAsStringAsync();
+                debuggingAnswer = JsonSerializer.Deserialize<DebugingPurpousesAnswerDto>(body);
             }
             return debuggingAnswer;
         }

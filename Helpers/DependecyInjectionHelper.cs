@@ -11,7 +11,11 @@ namespace MazeChallengeCA.Helpers
         public static void ConfigureMazeDependecyInjection(this IServiceCollection services, IConfigurationRoot configuration)
         {
             services.AddLogging();
-            services.AddHttpClient();
+            var apiParams = configuration.GetSection("Maze").Get<MazeApiParamsDto>();
+            services.AddHttpClient(Constants.HttpClientConfigureName, client =>
+            {
+                client.BaseAddress = new Uri(apiParams.Url);
+            });
             services.Configure<MazeApiParamsDto>(options => configuration.GetSection("Maze").Bind(options));
             services.AddSingleton<IMazeService, MazeService>();
             services.AddSingleton<ISolveMazeService, SolveMazeService>();

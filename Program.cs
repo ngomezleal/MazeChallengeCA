@@ -32,7 +32,7 @@ Maze objMaze = new Maze()
 {
     Width = Constants.Width,
     Height = Constants.Height,
-    Url = $"{apiParams.Url}/Maze?code={apiParams.Code}"
+    Url = $"api/Maze?code={apiParams.Code}"
 };
 
 //Step 1: "Create a New Random Maze"
@@ -42,7 +42,7 @@ Console.WriteLine("Maze created!");
 Game objGame = new Game()
 {
     Operation = Constants.Operation,
-    Url = $"{apiParams.Url}/Game/{newMaze.MazeUid}?code={apiParams.Code}"
+    Url = $"api/Game/{newMaze.MazeUid}?code={apiParams.Code}"
 };
 Console.WriteLine("Creating game...");
 var game = await buildMaze.CreateGameWithNewMaze(objGame);
