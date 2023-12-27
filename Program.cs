@@ -28,7 +28,7 @@ var virtualMazeService = serviceProvider.GetService<IVirtualMazeService>();
 var globalConfiguration = configuration.GetSection("GlobalConfiguration").Get<GlobalConfigurationDto>();
 
 //Important parameters to create new Maze
-Maze objMaze = new Maze()
+Maze maze = new Maze()
 {
     Width = globalConfiguration.MazeSize.Width,
     Height = globalConfiguration.MazeSize.Height,
@@ -36,7 +36,7 @@ Maze objMaze = new Maze()
 };
 
 //Step 1: "Create a New Random Maze"
-var newMaze = await buildMaze.CreateNewRandomMaze(objMaze);
+var newMaze = await buildMaze.CreateNewRandomMaze(maze);
 Console.WriteLine("Maze created!");
 
 //Step 2; "Start the game"
@@ -49,7 +49,7 @@ Console.WriteLine("Creating game...");
 var game = await buildMaze.CreateGameWithNewMaze(objGame);
 
 //Step 3 "Start to solve"
-char[,] virtualMaze = new char[objMaze.Height, objMaze.Width];
+char[,] virtualMaze = new char[maze.Height, maze.Width];
 virtualMaze = virtualMazeService.InitializeVirtualMaze(virtualMaze);
 
 //Call method to solve maze

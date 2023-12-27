@@ -20,11 +20,11 @@ namespace MazeChallengeCA.Services
         }
 
         //Step 1
-        public async Task<MazeAnswerDto> CreateNewRandomMaze(Maze objMaze)
+        public async Task<MazeAnswerDto> CreateNewRandomMaze(Maze maze)
         {
             var newMaze = new MazeAnswerDto();
             var client = httpClientFactory.CreateClient(config.Value.Maze.HttpClientConfigureName);
-            var response = await client.PostAsJsonAsync(objMaze.Url, objMaze);
+            var response = await client.PostAsJsonAsync(maze.Url, maze);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -34,11 +34,11 @@ namespace MazeChallengeCA.Services
         }
 
         //Step 2
-        public async Task<GameAnswerDto> CreateGameWithNewMaze(Game objGame)
+        public async Task<GameAnswerDto> CreateGameWithNewMaze(Game game)
         {
             var gameAnswer = new GameAnswerDto();
             var client = httpClientFactory.CreateClient(config.Value.Maze.HttpClientConfigureName);
-            var response = await client.PostAsJsonAsync(objGame.Uri, objGame);
+            var response = await client.PostAsJsonAsync(game.Uri, game);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -48,11 +48,11 @@ namespace MazeChallengeCA.Services
         }
 
         //Step 3
-        public async Task<GameCurrentPositionAnswerDto> GameCurrentPosition(CurrentPositionDto objCurrentPosition)
+        public async Task<GameCurrentPositionAnswerDto> GameCurrentPosition(CurrentPositionDto currentPosition)
         {
             var currentPositionAnswer = new GameCurrentPositionAnswerDto();
             var client = httpClientFactory.CreateClient(config.Value.Maze.HttpClientConfigureName);
-            var response = await client.GetAsync(objCurrentPosition.Url);
+            var response = await client.GetAsync(currentPosition.Url);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -63,11 +63,11 @@ namespace MazeChallengeCA.Services
 
         //Step 4
         //It allow to move another latitude
-        public async Task<GameCurrentPositionAnswerDto> MoveLatitude(Game objGame)
+        public async Task<GameCurrentPositionAnswerDto> MoveLatitude(Game game)
         {
             var latitudes = new GameCurrentPositionAnswerDto();
             var client = httpClientFactory.CreateClient(config.Value.Maze.HttpClientConfigureName);
-            var response = await client.PostAsJsonAsync(objGame.Uri, objGame);
+            var response = await client.PostAsJsonAsync(game.Uri, game);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -77,11 +77,11 @@ namespace MazeChallengeCA.Services
         }
 
         //Intermediate
-        public async Task<DebugingPurpousesAnswerDto> DebugingPurpouses(string url)
+        public async Task<DebugingPurpousesAnswerDto> DebugingPurpouses(string uri)
         {
             var debuggingAnswer = new DebugingPurpousesAnswerDto();
             var client = httpClientFactory.CreateClient(config.Value.Maze.HttpClientConfigureName);
-            var response = await client.GetAsync(url);
+            var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();

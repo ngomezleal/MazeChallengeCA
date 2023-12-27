@@ -71,7 +71,6 @@ namespace MazeChallengeCA.Services
                         //The end of the maze is always where the coord x and y are equal to the width-1 and height-1 of the created maze.
                         virtualMaze[currentPosition.MazeBlockView.CoordX, currentPosition.MazeBlockView.CoordY] = config.Value.Path.Goal;
                         virtualMaze = virtualMazeService.Print(virtualMaze);
-
                         Console.WriteLine();
                         Console.WriteLine("Congratulations, you won!");
                         return true;

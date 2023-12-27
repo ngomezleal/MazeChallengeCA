@@ -5,10 +5,10 @@ namespace MazeChallengeCA.Interfaces
 {
     public interface IMazeService
     {
-        Task<MazeAnswerDto> CreateNewRandomMaze(Maze objMaze);
-        Task<GameAnswerDto> CreateGameWithNewMaze(Game objGame);
-        Task<GameCurrentPositionAnswerDto> MoveLatitude(Game objGame);
-        Task<GameCurrentPositionAnswerDto> GameCurrentPosition(CurrentPositionDto objCurrentPosition);
-        Task<DebugingPurpousesAnswerDto> DebugingPurpouses(string url);
+        Task<MazeAnswerDto> CreateNewRandomMaze(Maze maze);
+        Task<GameAnswerDto> CreateGameWithNewMaze(Game game);
+        Task<GameCurrentPositionAnswerDto> MoveLatitude(Game game);
+        Task<GameCurrentPositionAnswerDto> GameCurrentPosition(CurrentPositionDto currentPosition);
+        Task<DebugingPurpousesAnswerDto> DebugingPurpouses(string uri);
     }
 }
